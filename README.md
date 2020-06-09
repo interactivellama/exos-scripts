@@ -12,7 +12,7 @@ It currently provides the following packages:
 - [Exos Script](https://github.com/exosjs/exos-scripts): a set of out-of-the-box extensible scripts that helps you with the lifecycle of your React + TypeScript applications.
 - [Exos Core](https://github.com/exosjs/exos-core): a library with core scripts that helps you to develop your React + TypeScript application and micro frontends.
 
-# Exos Scripts ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) [![npm version](https://img.shields.io/npm/v/exos-scripts.svg?style=flat)](https://www.npmjs.com/package/exos-scripts)
+# Exos Scripts ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) [![npm version](https://img.shields.io/npm/v/exos-scripts.svg?style=flat)](https://www.npmjs.com/package/exos-scripts) ![Build status](https://github.com/exosjs/exos-scripts/workflows/CI-CD/badge.svg?branch=master&event=push)
 
 This project contains a set of out-of-the-box extensible scripts that helps you with the lifecycle of your React + TypeScript applications. It is _heavily_ inspired in [Facebook' Create React App](https://github.com/facebookincubator/create-react-app) plugin.
 
