@@ -9,6 +9,7 @@ import eslintrcLibrary = require("./.eslintrc.library");
 // Use require because the ESLint types aren't updated yet.
 const { ESLint } = require("eslint");
 
+// Choose which default configuration to use
 const isLibrary = process.argv.find((item) => item === "--type=library") !== null;
 const eslintrc = isLibrary ? eslintrcLibrary : eslintrcReact;
 
