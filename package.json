@@ -23,10 +23,10 @@
   "homepage": "https://github.com/exosjs/exos-scripts#readme",
   "scripts": {
     "lint": "eslint -c ./src/scripts/lint/.eslintrc.library.js ./src/**/*.ts",
-    "test": "jest -c ./src/scripts/test/jest.config.js --passWithNoTests --collectCoverage=$CI --rootDir=.",
+    "test": "npm run build && jest -c ./src/scripts/test/jest.config.library.js --rootDir=.",
     "build": "rm -rf lib && tsc",
     "prepublishOnly": "npm run build",
-    "publish": "semantic-release --branches='.*' --ci=true --dry-run=true"
+    "publish": "semantic-release"
   },
   "peerDependencies": {
     "react": "^16.4.0",
@@ -56,6 +56,8 @@
     "sass-loader": "^8.0.2",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.1.3",
+    "stylelint": "^13.6.0",
+    "stylelint-config-sass-guidelines": "^7.0.0",
     "ts-jest": "^26.0.0",
     "ts-loader": "^6.2.2",
     "tslib": "^2.0.0",
@@ -70,6 +72,7 @@
     "@types/jest": "^25.2.1",
     "@types/mini-css-extract-plugin": "^0.9.1",
     "@types/node": "^13.11.1",
+    "@types/stylelint": "^9.10.1",
     "@types/webpack": "^4.41.10",
     "@types/webpack-dev-server": "^3.10.1",
     "semantic-release": "^17.0.8",
