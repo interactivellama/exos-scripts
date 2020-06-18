@@ -1,0 +1,36 @@
+// Bang Format test
+.bangformat {
+  background-color: #000 !important; // Bang format test
+  color: #000 !important; // Bang format test
+}
+
+// EmptyRule test
+.cat {
+}
+
+// HexValidation test
+.hexvalidation {
+  background: #ab; // Clearly a typo
+}
+
+// ID Selector test
+#id-selector {
+  color: #f00;
+}
+
+// Nesting Depth test
+.one {
+  .two {
+    .three {
+      .four {
+        color: #f00;
+      }
+    }
+  }
+}
+
+// Property spelling test
+.property-spelling {
+  diplay: none; // "display" is spelled incorrectly
+  heigth: 100%; // "height" is spelled incorrectly
+}
