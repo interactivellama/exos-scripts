@@ -9,16 +9,15 @@ import eslintrcLibrary = require("./.eslintrc.library");
 // Use require because the ESLint types aren't updated yet.
 const { ESLint } = require("eslint");
 
-// Choose which default configuration to use
-const isLibrary = process.argv.find((item) => item === "--type=library") !== null;
-const eslintrc = isLibrary ? eslintrcLibrary : eslintrcReact;
+async function main(argv: string[]) {
+  const isLibrary = argv.find((item) => item === "--type=library") !== null;
+  const eslintrc = isLibrary ? eslintrcLibrary : eslintrcReact;
 
-// Resolve configuration to use
-const configToUse = getConfigToUse<{}>("lint.js", eslintrc);
-console.info(configToUse.isCustom ? `Found custom lint at ${configToUse.customConfigPath}` : "Using default lint config");
+  // Resolve configuration to use
+  const configToUse = getConfigToUse<{}>("lint.js", eslintrc);
+  console.info(configToUse.isCustom ? `Found custom lint at ${configToUse.customConfigPath}` : "Using default lint config");
 
-async function main() {
-  const hasFixFlag = process.argv.indexOf("--fix") !== -1;
+  const hasFixFlag = argv.indexOf("--fix") !== -1;
 
   // Create an instance with the `fix` option.
   const eslint = new ESLint({
@@ -59,4 +58,4 @@ async function main() {
   }
 }
 
-main();
+export default main;

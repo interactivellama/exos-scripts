@@ -7,14 +7,14 @@ import getConfigToUse from "../../common/getConfigToUse";
 import stylelint from "stylelint";
 import stylelintrc = require("./.stylelintrc.js");
 
-async function main() {
+async function main(argv: string[]) {
   // Resolve configuration to use
   const configToUse = getConfigToUse<{}>("stylelint.js", stylelintrc);
   console.info(configToUse.isCustom ? `Found custom lint at ${configToUse.customConfigPath}` : "Using default lint config");
 
   try {
     // Check if the --files="globPattern1","globPattern2" argument is present
-    const filesArgument = process.argv.find((item) => item.startsWith("--files"));
+    const filesArgument = argv.find((item) => item.startsWith("--files"));
     const files = filesArgument ? filesArgument.substring("--files=".length).split(",") : [path.join(SOURCE_PATH, "/**/*.{scss,css}")];
 
     // Lint files and get the lint result
@@ -47,4 +47,4 @@ async function main() {
   }
 }
 
-main();
+export default main;

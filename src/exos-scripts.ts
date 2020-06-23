@@ -1,25 +1,31 @@
 #! /usr/bin/env node
-import path from "path";
-import spawn from "cross-spawn";
+import build from "./scripts/build";
+import start from "./scripts/start";
+import lint from "./scripts/lint";
+import test from "./scripts/test";
+import { scripts } from './scripts/types';
 
-function init(scriptName: string, availableScripts: string[], args: string[]) {
-  const scriptToExecute = availableScripts.find((item) => item.indexOf(scriptName) !== -1);
+async function init(scriptName: string, scriptArguments: string[], availableScripts: scripts) {
+  const scriptToExecute = availableScripts.hasOwnProperty(scriptName);
 
   if (!scriptToExecute) {
     console.error(`Script ${scriptName} doesn't exist.`);
-    console.error(`Valid scripts are: ${availableScripts.join(", ")}.`);
+    console.error(`Valid scripts are: ${Object.keys(availableScripts).join(", ")}.`);
     console.log();
     return;
   }
   console.log(`Executing script ${scriptName}...`);
-  const scriptPath = require.resolve(path.resolve(__dirname, "scripts", scriptToExecute));
-
-  spawn.sync("node", [scriptPath, ...args], { stdio: "inherit" });
+  await availableScripts[scriptName](scriptArguments)
   console.log();
 }
 
-const availableScripts = ["build", "start", "lint", "test", "stylelint"];
+const availableScripts = {
+  "build": build,
+  "start": start,
+  "lint": lint,
+  "test": test
+};
 const script = process.argv[2];
 const otherArgs = process.argv.slice(3);
 
-init(script, availableScripts, otherArgs);
+init(script, otherArgs, availableScripts);
