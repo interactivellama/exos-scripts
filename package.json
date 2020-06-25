@@ -23,7 +23,7 @@
   "homepage": "https://github.com/exosjs/exos-scripts#readme",
   "scripts": {
     "lint": "eslint -c ./src/scripts/lint/.eslintrc.library.js ./src/**/*.ts",
-    "test": "npm run build && jest -c ./src/scripts/test/jest.config.library.js --rootDir=.",
+    "test": "npm run build && jest --config=./src/scripts/test/jest.config.library.js --coverage=false",
     "build": "rm -rf lib && tsc",
     "prepublishOnly": "npm run build",
     "publish": "semantic-release"

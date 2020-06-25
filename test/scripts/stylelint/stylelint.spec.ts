@@ -11,7 +11,7 @@ describe("stylelint", () => {
   describe("when linting a SASS file with CSS Modules with no errors", () => {
     beforeAll(() => {
       scriptPath = path.resolve(process.cwd(), "./lib/exos-scripts.js");
-      fileToTestPath = path.resolve(process.cwd(), "./src/scripts/stylelint/mocks/sass-and-css-modules.scss");
+      fileToTestPath = path.resolve(process.cwd(), "./test/scripts/stylelint/mocks/sass-and-css-modules.scss");
       args = ["stylelint", `--files=${fileToTestPath}`];
       results = runScript(scriptPath, args);
     });
@@ -29,7 +29,7 @@ describe("stylelint", () => {
   describe("when linting a SASS file with CSS Modules with errors", () => {
     beforeAll(() => {
       scriptPath = path.resolve(process.cwd(), "./lib/exos-scripts.js");
-      fileToTestPath = path.resolve(process.cwd(), "./src/scripts/stylelint/mocks/failing-test-cases.scss");
+      fileToTestPath = path.resolve(process.cwd(), "./test/scripts/stylelint/mocks/failing-test-cases.scss");
       args = ["stylelint", `--files=${fileToTestPath}`];
       results = runScript(scriptPath, args);
     });

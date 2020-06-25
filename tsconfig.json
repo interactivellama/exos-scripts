@@ -1,7 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDirs": ["src", "test"],
     "outDir": "lib",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -17,5 +17,5 @@
     "strict": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*/*.test.ts"]
+  "exclude": ["node_modules", "**/*/*.spec.ts", "**/*/*.test.ts"]
 }
