@@ -2,15 +2,18 @@ import spawn from "cross-spawn";
 import path from "path";
 import type { SpawnSyncReturns } from "child_process";
 
-describe("stylelint", () => {
+describe("stylelint E2E", () => {
   let scriptPath: string;
   let fileToTestPath: string;
   let args: string[];
   let results: SpawnSyncReturns<string>;
 
+  beforeAll(() => {
+    scriptPath = path.resolve(process.cwd(), "./lib/index.js");
+  });
+
   describe("when linting a SASS file with CSS Modules with no errors", () => {
     beforeAll(() => {
-      scriptPath = path.resolve(process.cwd(), "./lib/exos-scripts.js");
       fileToTestPath = path.resolve(process.cwd(), "./test/scripts/stylelint/mocks/sass-and-css-modules.scss");
       args = ["stylelint", `--files=${fileToTestPath}`];
       results = runScript(scriptPath, args);
@@ -28,7 +31,6 @@ describe("stylelint", () => {
 
   describe("when linting a SASS file with CSS Modules with errors", () => {
     beforeAll(() => {
-      scriptPath = path.resolve(process.cwd(), "./lib/exos-scripts.js");
       fileToTestPath = path.resolve(process.cwd(), "./test/scripts/stylelint/mocks/failing-test-cases.scss");
       args = ["stylelint", `--files=${fileToTestPath}`];
       results = runScript(scriptPath, args);
