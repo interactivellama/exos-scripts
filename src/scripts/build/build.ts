@@ -10,10 +10,10 @@ import webpackConfig from "../../webpack/webpack.config";
 import getConfigToUse from "../../common/getConfigToUse";
 
 const configToUse = getConfigToUse<webpack.Configuration>("build.js", webpackConfig);
-console.info(configToUse.isCustom ? `Found custom build config at ${configToUse.customConfigPath}` : "Using default build config");
+console.log(configToUse.isCustom ? `Found custom build config at ${configToUse.customPath}` : "Using default build config");
 
 // For more information, see https://webpack.js.org/api/node/
-const compiler = webpack(configToUse.config);
+const compiler = webpack(configToUse.result);
 
 compiler.run((err: Error, stats: webpack.Stats) => {
   // The err object will only contain webpack-related issues, such as misconfiguration, etc.
@@ -21,9 +21,9 @@ compiler.run((err: Error, stats: webpack.Stats) => {
 
   if (err) {
     console.log();
-    console.error(chalk.red("❌ There are compilation errors. Fix them and try again."));
-    console.error(err.message);
-    console.error(err.stack || err);
+    console.log(chalk.red("❌ There are compilation errors. Fix them and try again."));
+    console.log(err.message);
+    console.log(err.stack || err);
     console.log();
     process.exit(1);
   }
@@ -34,8 +34,8 @@ compiler.run((err: Error, stats: webpack.Stats) => {
     // Only print the first error. Others are often indicative
     // of the same problem, and the extra noise will confuse the reader.
     console.log();
-    console.error(chalk.red("❌ There was an error during build."));
-    console.error(executionStats.errors[0]);
+    console.log(chalk.red("❌ There was an error during build."));
+    console.log(executionStats.errors[0]);
 
     // Exit with a failure code
     process.exit(1);
@@ -44,12 +44,12 @@ compiler.run((err: Error, stats: webpack.Stats) => {
   if (stats.hasWarnings()) {
     // Print all the warnings, but don't fail
     console.log();
-    console.warn(chalk.yellow("🚧 There were warnings during build."));
+    console.log(chalk.yellow("🚧 There were warnings during build."));
     executionStats.warnings.forEach((warning) => console.warn(chalk.yellow(warning)));
 
     // Exit with an OK code
     process.exit(0);
   }
 
-  console.info(chalk.green("✅ Build completed successfully."));
+  console.log(chalk.green("✅ Build completed successfully."));
 });

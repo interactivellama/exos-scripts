@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import path from "path";
 import spawn from "cross-spawn";
 
@@ -7,8 +8,8 @@ export default function exosScripts(scriptName: string, args: string[]) {
   const isScriptAvailable = availableScripts.find((item) => item.indexOf(scriptName) !== -1) !== undefined;
 
   if (!isScriptAvailable) {
-    console.error(`Script ${scriptName} doesn't exist.`);
-    console.error(`Valid scripts are: ${availableScripts.join(", ")}.`);
+    console.log(chalk.red(`Script ${scriptName} doesn't exist.`));
+    console.log(chalk.red(`Valid scripts are: ${availableScripts.join(", ")}.`));
     console.log();
     return;
   }
