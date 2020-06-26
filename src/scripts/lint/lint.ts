@@ -4,12 +4,9 @@ import path from "path";
 import { SOURCE_PATH } from "../../common/paths";
 import getConfigToUse from "../../common/getConfigToUse";
 import getFilesToUse from "../../common/getFilesToUse";
-
+import { ESLint } from "eslint";
 import eslintrcReact = require("./.eslintrc.react");
 import eslintrcLibrary = require("./.eslintrc.library");
-
-// Use require because the ESLint types aren't updated yet.
-const { ESLint } = require("eslint");
 
 // Choose which default configuration to use
 const isLibrary = process.argv.find((item) => item === "--type=library") !== null;
@@ -42,17 +39,25 @@ async function main() {
       await ESLint.outputFixes(results);
     }
 
-    // Format the results
+    // ESLint results is a collection of individual results (one per file)
+    // Generate a global results object containing the error count of each individual file
+    const globalResults = results.reduce(
+      (globalAcc, result) => {
+        globalAcc.errorCount += result.errorCount;
+        globalAcc.warningCount += result.warningCount;
+        return globalAcc;
+      },
+      { errorCount: 0, warningCount: 0 }
+    );
+
+    // Format the (global) results and output them
     const formatter = await eslint.loadFormatter("stylish");
     const resultText = formatter.format(results);
-
-    // Output the results and exit the process based on them
-    const resultHasErrors = results.errorCount > 0;
-    const resultHasWarnings = results.warningCount > 0;
-    const exitCode = resultHasErrors || resultHasWarnings ? 1 : 0;
-
     console.log(resultText);
-    process.exit(exitCode);
+
+    // Exit the process based on the (global) results
+    const hasErrorsOrWarnings = globalResults.errorCount > 0 || globalResults.warningCount > 0;
+    process.exit(hasErrorsOrWarnings ? 1 : 0);
   } catch (error) {
     // eslint.lintFiles could throw errors
     // See https://eslint.org/docs/developer-guide/nodejs-api#%E2%97%86-new-eslint-options

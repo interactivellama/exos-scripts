@@ -15,8 +15,10 @@ export default function exosScripts(scriptName: string, args: string[]) {
   }
 
   console.log(`Executing script ${scriptName}...`);
-  const scriptPath = require.resolve(path.resolve(__dirname, "scripts", `${scriptName}/${scriptName}`));
-
-  spawn.sync("node", [scriptPath, ...args], { stdio: "inherit" });
   console.log();
+
+  const scriptPath = require.resolve(path.resolve(__dirname, "scripts", `${scriptName}/${scriptName}`));
+  const result = spawn.sync("node", [scriptPath, ...args], { stdio: "inherit" });
+
+  process.exit(result.status || undefined);
 }

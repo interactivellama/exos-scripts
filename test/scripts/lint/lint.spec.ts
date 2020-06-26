@@ -3,15 +3,15 @@ import { runExosScript } from "../../test-utils";
 import type { SpawnSyncReturns } from "child_process";
 
 const MOCKS_FOLDER_PATH = path.resolve(__dirname, "./mocks");
-const errorMessage: string = "❌ There were errors while running stylelint.";
+const errorMessage = `✖ 20 problems (8 errors, 12 warnings)`;
 
-describe("stylelint E2E", () => {
+describe("lint E2E", () => {
   let args: string[];
   let results: SpawnSyncReturns<string>;
 
-  describe("when stylelinting a file with no errors", () => {
+  describe("when linting a file with no errors", () => {
     beforeAll(() => {
-      args = ["stylelint", `--files=${MOCKS_FOLDER_PATH}/sass-and-css-modules.scss`];
+      args = ["lint", `--files=${MOCKS_FOLDER_PATH}/passing-file.ts`];
       results = runExosScript(args);
     });
 
@@ -24,9 +24,9 @@ describe("stylelint E2E", () => {
     });
   });
 
-  describe("when stylelinting a file with errors", () => {
+  describe("when linting a file with errors", () => {
     beforeAll(() => {
-      args = ["stylelint", `--files=${MOCKS_FOLDER_PATH}/failing-test-cases.scss`];
+      args = ["lint", `--files=${MOCKS_FOLDER_PATH}/failing-file.ts`];
       results = runExosScript(args);
     });
 
