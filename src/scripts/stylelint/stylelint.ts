@@ -4,21 +4,22 @@ import chalk from "chalk";
 import path from "path";
 import { SOURCE_PATH, ROOT_PATH } from "../../common/paths";
 import getConfigToUse from "../../common/getConfigToUse";
+import getFilesToUse from "../../common/getFilesToUse";
 import stylelint from "stylelint";
 import stylelintrc = require("./.stylelintrc.js");
 
 async function main() {
   // Resolve configuration to use
-  const configToUse = getConfigToUse<{}>("stylelint.js", stylelintrc);
-  console.info(configToUse.isCustom ? `Found custom lint at ${configToUse.customConfigPath}` : "Using default lint config");
+  const configToUse = getConfigToUse("stylelint.js", stylelintrc);
+  console.log(configToUse.isCustom ? `Found custom lint at ${configToUse.customPath}` : "Using default lint config");
+
+  // Resolve files to use
+  const filesToUse = getFilesToUse("--files=", [path.join(SOURCE_PATH, "/**/*.{scss,css}")]);
+  console.log(filesToUse.isCustom ? `Found custom rule to identify files to use` : "Using default rule to identify files");
 
   try {
-    // Check if the --files="globPattern1","globPattern2" argument is present
-    const filesArgument = process.argv.find((item) => item.startsWith("--files"));
-    const files = filesArgument ? filesArgument.substring("--files=".length).split(",") : [path.join(SOURCE_PATH, "/**/*.{scss,css}")];
-
     // Lint files and get the lint result
-    const options = { config: configToUse.config, files: files };
+    const options = { config: configToUse.result, files: filesToUse.result };
     const { errored, results, output } = await stylelint.lint(options);
 
     // Output the results and exit the process based on them
