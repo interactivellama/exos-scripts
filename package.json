@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "bin": {
-    "exos-scripts": "./lib/exos-scripts.js"
+    "exos-scripts": "./lib/index.js"
   },
   "files": [
     "lib"

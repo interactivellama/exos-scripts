@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 import exosScripts from "./exos-scripts";
 
 const scriptToExecute = process.argv[2];
