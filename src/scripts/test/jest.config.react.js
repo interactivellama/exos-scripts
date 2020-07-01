@@ -6,7 +6,7 @@ module.exports = {
     "^.+\\.tsx?$": "ts-jest",
   },
   setupFilesAfterEnv: [path.join(__dirname, "enzyme.js")],
-  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+  testRegex: "^.+\\.(tests?|spec)\\.[jt]sx?$",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   collectCoverage: !!process.env.CI, // If the CI environment variable is set, run coverage
   moduleNameMapper: {
