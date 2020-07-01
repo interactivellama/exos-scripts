@@ -6,7 +6,6 @@ module.exports = {
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
-  testRegex: "^.+\\.(test|spec)\\.tsx?$",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   collectCoverage: !!process.env.CI,
   collectCoverageFrom: ["**/*.{js,jsx,tsx,ts}", "!**/node_modules/**"],
