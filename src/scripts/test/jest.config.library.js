@@ -1,11 +1,8 @@
 const path = require("path");
 const ROOT_PATH = path.resolve(process.cwd());
-const SOURCE_PATH = path.resolve(ROOT_PATH, "src");
-const TEST_PATH = path.resolve(ROOT_PATH, "test");
 
 module.exports = {
   rootDir: ROOT_PATH,
-  roots: [SOURCE_PATH, TEST_PATH],
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
