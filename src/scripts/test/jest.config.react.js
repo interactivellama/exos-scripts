@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  roots: ["<rootDir>/src"],
+  rootDir: ROOT_PATH,
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
