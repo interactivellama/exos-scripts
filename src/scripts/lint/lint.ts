@@ -9,7 +9,7 @@ import eslintrcReact = require("./.eslintrc.react");
 import eslintrcLibrary = require("./.eslintrc.library");
 
 // Choose which default configuration to use
-const isLibrary = process.argv.find((item) => item === "--type=library") !== null;
+const isLibrary = process.argv.find((item) => item === "--type=library") !== undefined;
 const eslintrc = isLibrary ? eslintrcLibrary : eslintrcReact;
 
 // Resolve configuration to use
