@@ -20,6 +20,7 @@ compiler.run((err: Error, stats: webpack.Stats) => {
   // Compilation errors are stored in stats.hasErrors()
 
   if (err) {
+    console.log();
     console.log(chalk.red("❌ There are compilation errors. Fix them and try again."));
     console.log(err.message);
     console.log(err.stack || err);
@@ -34,6 +35,7 @@ compiler.run((err: Error, stats: webpack.Stats) => {
   if (executionStats.errors.length) {
     // Only print the first error. Others are often indicative
     // of the same problem, and the extra noise will confuse the reader.
+    console.log();
     console.log(chalk.red("❌ There was an error during build."));
     console.log(executionStats.errors[0]);
     console.log();
@@ -44,6 +46,7 @@ compiler.run((err: Error, stats: webpack.Stats) => {
 
   if (stats.hasWarnings()) {
     // Print all the warnings, but don't fail
+    console.log();
     console.log(chalk.yellow("🚧 There were warnings during build."));
     executionStats.warnings.forEach((warning) => console.warn(chalk.yellow(warning)));
     console.log();
@@ -52,6 +55,7 @@ compiler.run((err: Error, stats: webpack.Stats) => {
     process.exit(0);
   }
 
+  console.log();
   console.log(chalk.green("✅ Build completed successfully."));
   console.log();
 });

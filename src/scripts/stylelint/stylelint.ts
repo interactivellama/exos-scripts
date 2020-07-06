@@ -24,11 +24,20 @@ async function main() {
 
     // Output the results and exit the process based on them
     if (errored) {
+      console.log();
       console.log(chalk.red("❌ There were errors while running stylelint."));
 
       // Results are grouped per file, inside of a warnings array
-      results.forEach(({ source, warnings }) => {
+      results.forEach(({ source, warnings, invalidOptionWarnings }) => {
         const filePath = source.replace(ROOT_PATH, "");
+
+        // invalidOptionWarnings contains all stylelint configuration errors
+        invalidOptionWarnings.forEach(({ text }) => {
+          console.log(chalk.yellow(text));
+        });
+
+        // warnings contains all code lines in the business logic
+        // that are not compliant with the stylelint configuration (errors and warnings)
         warnings.forEach(({ line, column, severity, text }) => {
           const message = `${filePath}:${line}:${column}: ${text} [${severity}]`;
           console.log(severity === "error" ? chalk.red(message) : chalk.yellow(message));
@@ -42,6 +51,7 @@ async function main() {
       process.exit(0);
     }
   } catch (error) {
+    console.log();
     console.error(chalk.red("❌ There was a compilation error while running stylelint. Please fix it and try again"));
     console.error(chalk.red(error));
     process.exit(1);
