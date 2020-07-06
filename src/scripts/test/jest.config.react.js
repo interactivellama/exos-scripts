@@ -1,4 +1,5 @@
 const path = require("path");
+const ROOT_PATH = path.resolve(process.cwd());
 
 module.exports = {
   rootDir: ROOT_PATH,
