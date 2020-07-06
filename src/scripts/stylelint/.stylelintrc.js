@@ -9,6 +9,7 @@ module.exports = {
     // Override general rules here, see https://stylelint.io/user-guide/configure#rules
     "string-quotes": "double",
     "max-nesting-depth": 3,
+    "order/properties-alphabetical-order": null,
 
     // Override rules by adding exceptions to support CSS Modules
     "selector-class-pattern": "^(?:u|is|has|global|local)-[a-z][a-zA-Z0-9]*$|^(?!u|is|has)[a-zA-Z][a-zA-Z0-9]*(?:-[a-z][a-zA-Z0-9]*)?(?:--[a-z][a-zA-Z0-9]*)?$",
