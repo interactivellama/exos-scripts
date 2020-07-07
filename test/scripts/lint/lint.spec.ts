@@ -4,6 +4,7 @@ import type { SpawnSyncReturns } from "child_process";
 
 const MOCKS_FOLDER_PATH = path.resolve(__dirname, "./mocks");
 const errorMessage = `✖ 20 problems (8 errors, 12 warnings)`;
+const warningMessage = `✖ 3 problems (0 errors, 3 warnings)`;
 
 describe("lint E2E", () => {
   let args: string[];
@@ -36,6 +37,38 @@ describe("lint E2E", () => {
 
     it("should exit with status code 1", () => {
       expect(results.status).toBe(1);
+    });
+  });
+
+  describe("when linting a file with warnings", () => {
+    describe("and --max-warnings is not defined", () => {
+      beforeAll(() => {
+        args = ["lint", `--files=${MOCKS_FOLDER_PATH}/file-with-warnings.ts`];
+        results = runExosScript(args);
+      });
+
+      it("should output warnings", () => {
+        expect(results.stdout.includes(warningMessage)).toBe(true);
+      });
+
+      it("should exit with status code 0", () => {
+        expect(results.status).toBe(0);
+      });
+    });
+
+    describe("and --max-warnings is defined", () => {
+      beforeAll(() => {
+        args = ["lint", `--files=${MOCKS_FOLDER_PATH}/file-with-warnings.ts`, "--max-warnings=0"];
+        results = runExosScript(args);
+      });
+
+      it("should output warnings", () => {
+        expect(results.stdout.includes(warningMessage)).toBe(true);
+      });
+
+      it("should exit with status code 1", () => {
+        expect(results.status).toBe(1);
+      });
     });
   });
 });

@@ -1,4 +1,5 @@
 import type { RulesetResult } from "./types";
+import getArgumentValue from "./getArgumentValue";
 
 /**
  * Retrieves the files to use.
@@ -11,13 +12,13 @@ import type { RulesetResult } from "./types";
 function getFilesToUse(filesArg: string, defaultValue: string[]): RulesetResult<string[]> {
   // Check if the --files="globPattern1","globPattern2" argument is present
   // If it is, use it to identify the files to test against
-  const filesArgument = process.argv.find((item) => item.startsWith("--files"));
+  const filesArgument = getArgumentValue(process.argv, "files");
 
-  if (filesArgument === undefined) {
+  if (!filesArgument) {
     return { result: defaultValue, isCustom: false };
   }
 
-  return { isCustom: true, customPath: filesArg, result: filesArgument.substring("--files=".length).split(",") };
+  return { isCustom: true, customPath: filesArg, result: filesArgument.split(",") };
 }
 
 export default getFilesToUse;

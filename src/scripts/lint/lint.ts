@@ -4,6 +4,7 @@ import path from "path";
 import { SOURCE_PATH } from "../../common/paths";
 import getConfigToUse from "../../common/getConfigToUse";
 import getFilesToUse from "../../common/getFilesToUse";
+import getArgument from "../../common/getArgumentValue";
 import { ESLint } from "eslint";
 import eslintrcReact = require("./.eslintrc.react");
 import eslintrcLibrary = require("./.eslintrc.library");
@@ -56,8 +57,17 @@ async function main() {
     console.log(resultText);
 
     // Exit the process based on the (global) results
-    const hasErrorsOrWarnings = globalResults.errorCount > 0 || globalResults.warningCount > 0;
-    process.exit(hasErrorsOrWarnings ? 1 : 0);
+
+    if (globalResults.errorCount > 0) {
+      process.exit(1);
+    }
+
+    const maxWarnings = getArgument(process.argv, "max-warnings", "-1");
+    if (maxWarnings !== "-1" && globalResults.warningCount > parseInt(maxWarnings)) {
+      process.exit(1);
+    }
+
+    process.exit(0);
   } catch (error) {
     // eslint.lintFiles could throw errors
     // See https://eslint.org/docs/developer-guide/nodejs-api#%E2%97%86-new-eslint-options
