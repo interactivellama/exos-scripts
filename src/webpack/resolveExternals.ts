@@ -1,7 +1,7 @@
 import type webpack from "webpack";
 
-export default (isDevelopment: boolean): webpack.ExternalsElement => {
-  if (isDevelopment) {
+export default (isDevelopment: boolean, isLibrary?: true): webpack.ExternalsElement => {
+  if (isDevelopment || isLibrary) {
     return {};
   }
 
