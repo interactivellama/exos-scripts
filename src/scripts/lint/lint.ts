@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 import chalk from "chalk";
 import path from "path";
+import { ESLint } from "eslint";
 import { SOURCE_PATH } from "../../common/paths";
 import getConfigToUse from "../../common/getConfigToUse";
 import getFilesToUse from "../../common/getFilesToUse";
-import getArgument from "../../common/getArgumentValue";
-import { ESLint } from "eslint";
-import eslintrcReact = require("./.eslintrc.react");
+import getArgumentValue from "../../common/getArgumentValue";
+
 import eslintrcLibrary = require("./.eslintrc.library");
+import eslintrcReact = require("./.eslintrc.react");
 
 // Choose which default configuration to use
-const isLibrary = process.argv.find((item) => item === "--type=library") !== undefined;
+const isLibrary = getArgumentValue(process.argv, "--type").toLowerCase() === "library";
 const eslintrc = isLibrary ? eslintrcLibrary : eslintrcReact;
 
 // Resolve configuration to use
@@ -62,7 +63,7 @@ async function main() {
       process.exit(1);
     }
 
-    const maxWarnings = getArgument(process.argv, "max-warnings", "-1");
+    const maxWarnings = getArgumentValue(process.argv, "max-warnings", "-1");
     if (maxWarnings !== "-1" && globalResults.warningCount > parseInt(maxWarnings)) {
       process.exit(1);
     }
