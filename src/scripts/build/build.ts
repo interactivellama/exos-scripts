@@ -55,7 +55,6 @@ compiler.run((err: Error, stats: webpack.Stats) => {
     process.exit(0);
   }
 
-  console.log();
   console.log(chalk.green("✅ Build completed successfully."));
   console.log();
 });

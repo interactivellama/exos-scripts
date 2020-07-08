@@ -1,10 +1,11 @@
 /**
  * Get the value of a particular argument
  * @param args The collection of arguments (e.g. `["--watchAll=true", "--coverage"]`)
- * @param arg The argument to look for (e.g. `"--watchAll"`)
- * @returns The argument value or the default argument value
+ * @param arg The name of the argument to look for (e.g. `"watchAll"`)
+ * @param defaultValue The default value to return if the argument is not present
+ * @returns The value of the argument. If the argument is not present, it returns the default value.
  */
-function getArgumentValue(args: string[], arg: string, defaultArgument = ""): string {
+function getArgumentValue(args: string[], arg: string, defaultValue = ""): string {
   const argument = args.find((item) => item.startsWith(`--${arg}`));
 
   // Cover arguments that are booleans and doesn't have a value (e.g. "--coverage")
@@ -13,7 +14,7 @@ function getArgumentValue(args: string[], arg: string, defaultArgument = ""): st
   }
 
   // Cover arguments that have a value (e.g. "--maxWarnings=3" but also "--maxWarnings 3")
-  return argument?.substring(`--${arg}=`.length) || defaultArgument;
+  return argument?.substring(`--${arg}=`.length) || defaultValue;
 }
 
 export default getArgumentValue;
