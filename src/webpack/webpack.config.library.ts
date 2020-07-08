@@ -14,7 +14,7 @@ const webpackConfig: webpack.Configuration = {
 
   entry: path.resolve(ROOT_PATH, "./src/index.tsx"),
   output: {
-    filename: "index.min.js'",
+    filename: "index.min.js",
     path: OUTPUT_PATH,
   },
 
