@@ -5,12 +5,8 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import { ASSETS_PATH, OUTPUT_PATH, OUTPUT_PUBLIC_PATH } from "../common/paths";
 
-// TODO: move this to the main file and convert the webpack to a function
-import getArgumentValue from "../common/getArgumentValue";
-const isLibrary = getArgumentValue(process.argv, "type").toLowerCase() === "library";
-
-export default (isDevelopment: boolean, version: string): webpack.Plugin[] => {
-  const noOpFunction = (): undefined => undefined;
+export default (isDevelopment: boolean, isLibrary: boolean, version: string): webpack.Plugin[] => {
+  // const noOpFunction = (): undefined => undefined;
   const miniCssExtractPlugin = new MiniCssExtractPlugin({
     filename: isDevelopment ? "styles.css" : "styles.[hash:5].css",
     chunkFilename: isDevelopment ? "[id].css" : "[id].[hash:5].css",
@@ -29,11 +25,11 @@ export default (isDevelopment: boolean, version: string): webpack.Plugin[] => {
   const watchIgnorePlugin = new webpack.WatchIgnorePlugin([/scss\.d\.ts$/]);
   const hotModuleReplacementPlugin = new webpack.HotModuleReplacementPlugin();
 
-  return [
-    miniCssExtractPlugin,
-    !isLibrary ? copyWebpackPlugin : noOpFunction,
-    !isLibrary ? htmlWebpackPlugin : noOpFunction,
-    watchIgnorePlugin,
-    isDevelopment ? hotModuleReplacementPlugin : noOpFunction,
-  ];
+  if (isLibrary) {
+    return isDevelopment ? [watchIgnorePlugin, hotModuleReplacementPlugin] : [watchIgnorePlugin];
+  }
+
+  return isDevelopment
+    ? [miniCssExtractPlugin, copyWebpackPlugin, htmlWebpackPlugin, watchIgnorePlugin, hotModuleReplacementPlugin]
+    : [miniCssExtractPlugin, copyWebpackPlugin, htmlWebpackPlugin, watchIgnorePlugin];
 };

@@ -2,7 +2,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { SOURCE_PATH } from "../common/paths";
 import type webpack from "webpack";
 
-const getCssLoaders = (isDevelopment: boolean): (string | webpack.RuleSetLoader)[] => {
+const getCssLoaders = (isDevelopment: boolean, isLibrary: boolean): (string | webpack.RuleSetLoader)[] => {
   const styleLoader = "style-loader";
   const miniCssExtractPluginLoader = MiniCssExtractPlugin.loader;
   const typingsCssModulesLoader = {
@@ -27,10 +27,14 @@ const getCssLoaders = (isDevelopment: boolean): (string | webpack.RuleSetLoader)
     },
   };
 
+  if (isLibrary) {
+    return isDevelopment ? [styleLoader, typingsCssModulesLoader, cssLoader] : [styleLoader, cssLoader];
+  }
+
   return isDevelopment ? [styleLoader, typingsCssModulesLoader, cssLoader] : [miniCssExtractPluginLoader, cssLoader];
 };
 
-export default (isDevelopment: boolean): webpack.RuleSetRule[] => [
+export default (isDevelopment: boolean, isLibrary: boolean): webpack.RuleSetRule[] => [
   // All .ts and .tsx files will be loaded with ts-loader
   { test: /\.ts(x?)$/, include: SOURCE_PATH, use: [{ loader: "ts-loader" }] },
   // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
@@ -38,7 +42,7 @@ export default (isDevelopment: boolean): webpack.RuleSetRule[] => [
   {
     test: /\.scss$/,
     use: [
-      ...getCssLoaders(isDevelopment),
+      ...getCssLoaders(isDevelopment, isLibrary),
       {
         loader: "sass-loader",
         options: {
@@ -49,7 +53,7 @@ export default (isDevelopment: boolean): webpack.RuleSetRule[] => [
   },
   {
     test: /\.css$/,
-    use: [...getCssLoaders(isDevelopment)],
+    use: [...getCssLoaders(isDevelopment, isLibrary)],
   },
   { test: /\.svg$/, use: ["@svgr/webpack", "url-loader"] },
 ];
