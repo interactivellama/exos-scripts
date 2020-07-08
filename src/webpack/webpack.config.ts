@@ -9,12 +9,16 @@ import type webpack from "webpack";
 const isDevelopment = process.env.NODE_ENV === "development" || process.env.NODE_ENV === "dev";
 const version = resolveVersion(isDevelopment);
 
+// TODO: move this to the main file and convert the webpack to a function
+import getArgumentValue from "../common/getArgumentValue";
+const isLibrary = getArgumentValue(process.argv, "type").toLowerCase() === "library";
+
 const webpackConfig: webpack.Configuration = {
   mode: isDevelopment ? "development" : "production",
 
   entry: path.resolve(ROOT_PATH, "./src/index.tsx"),
   output: {
-    filename: "bundle.[hash:5].min.js",
+    filename: isLibrary ? "index.min.js" : "bundle.[hash:5].min.js",
     path: OUTPUT_PATH,
     publicPath: OUTPUT_PUBLIC_PATH,
   },
