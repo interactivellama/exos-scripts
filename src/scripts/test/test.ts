@@ -5,13 +5,14 @@ if (!process.env.NODE_ENV) {
 }
 
 import * as jest from "jest";
+import getArgumentValue from "../../common/getArgumentValue";
 import getConfigToUse from "../../common/getConfigToUse";
 import jestConfigReact = require("./jest.config.react");
 import jestConfigLibrary = require("./jest.config.library");
 import type { Config } from "@jest/types";
 
 // Choose which default configuration to use
-const isLibrary = process.argv.find((item) => item === "--type=library") !== null;
+const isLibrary = getArgumentValue(process.argv, "type").toLowerCase() === "library";
 const jestConfig = isLibrary ? jestConfigLibrary : jestConfigReact;
 
 // Get config path (default or custom)
