@@ -51,7 +51,28 @@ Then, update your **package.json** with the following:
 }
 ```
 
-## Scripts
+## Extending/Replacing the script configuration
+
+To extend or replace the scripts configurations, you have to create an **.exos.config.js** file exporting the following:
+
+```js
+module.exports = {
+  scripts: {
+    lint: (config, { env }) => {
+      // TODO: Modify the config or replace it entirely
+      return config;
+    },
+    start: (config, { env }) => {
+      // TODO: Modify the config or replace it entirely
+      return config;
+    },
+  },
+};
+```
+
+You can modify the configuration of all the scripts this way (`lint`, `start`, `test`, `start`,`build`) by passing a function that receives the default config used by **exos-scripts** and the configuration variables used (in the example above, `env` tells you the value of `NODE_ENV` used by the script), and returns the modified configuration.
+
+## Scripts in detail
 
 ### Start
 
@@ -88,5 +109,6 @@ It has a **library mode** for Node Libraries using [TypeScript](https://www.type
 ### Stylelint
 
 It comes with with best practices for development with [SCSS](https://sass-lang.com/guide) and [CSS Modules](https://github.com/css-modules/css-modules) (see the rules [here](./src/scripts/stylelint/.stylelintrc.js))
+
 
 🚀!

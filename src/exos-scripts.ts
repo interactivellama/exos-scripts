@@ -1,15 +1,12 @@
 import chalk from "chalk";
 import path from "path";
 import spawn from "cross-spawn";
+import { ExosScripts } from "./common/types";
 
-const availableScripts: string[] = ["build", "start", "lint", "test", "stylelint"];
-
-export default function exosScripts(scriptName: string, args: string[]) {
-  const isScriptAvailable = availableScripts.find((item) => item.indexOf(scriptName) !== -1) !== undefined;
-
-  if (!isScriptAvailable) {
+export default function exosScripts(scriptName: string, args: string[]): void {
+  if (!(scriptName in ExosScripts)) {
     console.log(chalk.red(`Script ${scriptName} doesn't exist.`));
-    console.log(chalk.red(`Valid scripts are: ${availableScripts.join(", ")}.`));
+    console.log(chalk.red(`Valid scripts are: ${Object.keys(ExosScripts).join(", ")}.`));
     console.log();
     return;
   }

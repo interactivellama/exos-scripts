@@ -1,12 +1,30 @@
+/** Exos Scripts names */
+export enum ExosScripts {
+  "start" = "start",
+  "build" = "build",
+  "lint" = "lint",
+  "stylelint" = "stylelint",
+  "test" = "test",
+}
+
+/** Configuration function of the scripts */
+type ExosScriptConfigFn<T> = (defaultConfig: T, envVariables: { env?: string }) => T;
+
 /**
- * Result of a check to use either a default ruleset
- * or a custom ruleset sent via process.args
+ * Exos configuration file
  */
-export interface RulesetResult<T> {
-  /** The result of the rule check */
-  result: T;
-  /** True if the resolved ruleset is custom. False if it is the default */
-  isCustom: boolean;
-  /** The path of the custom ruleset to use */
-  customPath?: string;
+export interface ExosConfig {
+  /** Custom configuration for the scripts */
+  scripts: {
+    /** Configuration function for the lint script */
+    lint: ExosScriptConfigFn<{}>;
+    /** Configuration function for the stylelint script */
+    stylelint: ExosScriptConfigFn<{}>;
+    /** Configuration function for the start script */
+    start: ExosScriptConfigFn<{}>;
+    /** Configuration function for the build script */
+    build: ExosScriptConfigFn<{}>;
+    /** Configuration function for the test script */
+    test: ExosScriptConfigFn<{}>;
+  };
 }

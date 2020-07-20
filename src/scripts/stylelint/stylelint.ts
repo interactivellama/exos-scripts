@@ -2,25 +2,28 @@
 
 import chalk from "chalk";
 import path from "path";
+import stylelint from "stylelint";
 import { SOURCE_PATH, ROOT_PATH } from "../../common/paths";
 import getConfigToUse from "../../common/getConfigToUse";
 import getFilesToUse from "../../common/getFilesToUse";
-import stylelint from "stylelint";
+import { ExosScripts } from "../../common/types";
+
 import stylelintrc = require("./.stylelintrc.js");
 
-async function main() {
+(async function main(): Promise<void> {
   // Resolve configuration to use
-  const configToUse = getConfigToUse("stylelint.js", stylelintrc);
-  console.log(configToUse.isCustom ? `Found custom lint at ${configToUse.customPath}` : "Using default lint config");
+  const configToUse = getConfigToUse(ExosScripts.stylelint, stylelintrc);
+  console.log(configToUse !== stylelintrc ? `Found custom stylelint config` : "Using default stylelint config");
 
   // Resolve files to use
-  const filesToUse = getFilesToUse("--files=", [path.join(SOURCE_PATH, "/**/*.{scss,css}")]);
-  console.log(filesToUse.isCustom ? `Found custom rule to identify files to use` : "Using default rule to identify files");
+  const defaultFilesToUse = [path.join(SOURCE_PATH, "/**/*.{scss,css}")];
+  const filesToUse = getFilesToUse("--files=", defaultFilesToUse);
+  console.log(filesToUse !== defaultFilesToUse ? `Found custom rule to identify files to use` : "Using default rule to identify files");
 
   try {
     // Lint files and get the lint result
-    const options = { config: configToUse.result, files: filesToUse.result };
-    const { errored, results, output } = await stylelint.lint(options);
+    const options = { config: configToUse, files: filesToUse };
+    const { errored, results } = await stylelint.lint(options);
 
     // Output the results and exit the process based on them
     if (errored) {
@@ -56,6 +59,4 @@ async function main() {
     console.error(chalk.red(error));
     process.exit(1);
   }
-}
-
-main();
+})();

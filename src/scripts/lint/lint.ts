@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 import chalk from "chalk";
 import path from "path";
-import { ESLint } from "eslint";
+import { ESLint, Linter } from "eslint";
 import { SOURCE_PATH } from "../../common/paths";
 import getConfigToUse from "../../common/getConfigToUse";
 import getFilesToUse from "../../common/getFilesToUse";
 import getArgumentValue from "../../common/getArgumentValue";
+import { ExosScripts } from "../../common/types";
 
 import eslintrcLibrary = require("./.eslintrc.library");
 import eslintrcReact = require("./.eslintrc.react");
@@ -15,26 +16,27 @@ const isLibrary = getArgumentValue(process.argv, "type").toLowerCase() === "libr
 const eslintrc = isLibrary ? eslintrcLibrary : eslintrcReact;
 
 // Resolve configuration to use
-const configToUse = getConfigToUse<{}>("lint.js", eslintrc);
-console.log(configToUse.isCustom ? `Found custom lint at ${configToUse.customPath}` : "Using default lint config");
+const configToUse = getConfigToUse<Linter.Config>(ExosScripts.lint, eslintrc as Linter.Config);
+console.log(configToUse !== eslintrc ? `Found custom lint config` : "Using default lint config");
 
 // Resolve files to use
-const filesToUse = getFilesToUse("--files=", [path.join(SOURCE_PATH, "/**/*.{ts,tsx}")]);
-console.log(filesToUse.isCustom ? `Found custom rule to identify files to use: ${filesToUse.result}` : "Using default rule to identify files");
+const defaultFilesToUse = [path.join(SOURCE_PATH, "/**/*.{ts,tsx}")];
+const filesToUse = getFilesToUse("--files=", defaultFilesToUse);
+console.log(filesToUse != defaultFilesToUse ? `Found custom rule to identify files to use: ${filesToUse}` : "Using default rule to identify files");
 
-async function main() {
+(async function main(): Promise<void> {
   const hasFixFlag = process.argv.indexOf("--fix") !== -1;
 
   // Create an instance with the `fix` option.
   const eslint = new ESLint({
-    baseConfig: configToUse.result,
+    baseConfig: configToUse,
     fix: hasFixFlag,
     useEslintrc: false,
   });
 
   try {
     // Lint files and get the lint result
-    const results = await eslint.lintFiles(filesToUse.result);
+    const results = await eslint.lintFiles(filesToUse);
 
     // If "--fix" is provided, modify the files with the fixed code
     if (hasFixFlag) {
@@ -76,6 +78,4 @@ async function main() {
     console.error(error);
     process.exit(1);
   }
-}
-
-main();
+})();

@@ -3,7 +3,7 @@ import { runExosScript } from "../../test-utils";
 import type { SpawnSyncReturns } from "child_process";
 
 const MOCKS_FOLDER_PATH = path.resolve(__dirname, "./mocks");
-const errorMessage: string = "❌ There were errors while running stylelint.";
+const errorMessage = "❌ There were errors while running stylelint.";
 
 describe("stylelint E2E", () => {
   let args: string[];

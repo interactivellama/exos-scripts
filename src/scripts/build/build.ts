@@ -8,12 +8,13 @@ import chalk from "chalk";
 import webpack from "webpack";
 import webpackConfig from "../../webpack/webpack.config";
 import getConfigToUse from "../../common/getConfigToUse";
+import { ExosScripts } from "../../common/types";
 
-const configToUse = getConfigToUse<webpack.Configuration>("build.js", webpackConfig);
-console.log(configToUse.isCustom ? `Found custom build config at ${configToUse.customPath}` : "Using default build config");
+const configToUse = getConfigToUse<webpack.Configuration>(ExosScripts.build, webpackConfig);
+console.log(configToUse !== webpackConfig ? `Found custom build config` : "Using default build config");
 
 // For more information, see https://webpack.js.org/api/node/
-const compiler = webpack(configToUse.result);
+const compiler = webpack(configToUse);
 
 compiler.run((err: Error, stats: webpack.Stats) => {
   // The err object will only contain webpack-related issues, such as misconfiguration, etc.
