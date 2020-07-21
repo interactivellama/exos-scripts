@@ -1,4 +1,7 @@
 {
-  "extends": ["./src/scripts/lint/.eslintrc.library.js"]
+  "extends": ["./src/scripts/lint/.eslintrc.library.js"],
   // If you want to customize this file, see TBD
+  "rules": {
+    "no-console": "off"
+  }
 }

@@ -1,7 +1,7 @@
-import fs from "fs";
-import path from "path";
-import { CONFIG_PATH } from "./paths";
-import type { ExosConfig, ExosScripts } from "../common/types";
+import fs from 'fs';
+import path from 'path';
+import { CONFIG_PATH } from './paths';
+import type { ExosConfig, ExosScripts } from './types';
 
 /**
  * Retrieves the configuration to use.
@@ -19,6 +19,7 @@ function getConfigToUse<T>(scriptName: ExosScripts, defaultConfig: T): T {
     return defaultConfig;
   }
 
+  // eslint-disable-next-line import/no-dynamic-require, global-require
   const exosConfig = require(exosConfigPath) as ExosConfig;
   const exosScriptCustomConfig = exosConfig.scripts && exosConfig.scripts[scriptName];
 
