@@ -1,15 +1,8 @@
 module.exports = {
-  parser: "@typescript-eslint/parser", // Specifies the ESLint parser
+  parser: "@typescript-eslint/parser",
   extends: [
-    // Uses the recommended rules from @eslint-plugin-react
-    "plugin:react/recommended",
-    // Uses the recommended rules from @typescript-eslint
+    "eslint-config-airbnb",
     "plugin:@typescript-eslint/recommended",
-    // Disables ESLint rules that would conflict with prettier
-    "prettier/@typescript-eslint",
-    // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors.
-    // Make sure this is always the last configuration in the extends array.
-    "plugin:prettier/recommended",
   ],
   env: {
     browser: true,
@@ -29,10 +22,39 @@ module.exports = {
     },
   },
   rules: {
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g. "@typescript-eslint/explicit-function-return-type": "off",
-    // "prettier/prettier": ["error", { "trailingComma": "none" }]
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
+    "react/sort-comp": ["error", {
+      "order": [
+        "type-annotations",
+        "static-variables",
+        "static-methods",
+        "getters",
+        "setters",
+        "lifecycle",
+        "everything-else",
+        "render",
+      ],
+    }],
+    'react/jsx-props-no-spreading': 'off',
+    'react/prop-types': 'off',
+    "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "ignore"
+    }],
+    "no-prototype-builtins": "off",
+    'max-len': ['error', {"code": 120, "tabWidth": 2, "ignoreUrls": true, "ignoreStrings": true, "ignoreRegExpLiterals": true}],
+    "prefer-destructuring": ["error", {"object": true, "array": false}],
+    "object-curly-newline": ["error", {
+      "ObjectExpression": { "multiline": true, "consistent": true },
+      "ObjectPattern": { "multiline": true, "consistent": true },
+      "ImportDeclaration": { "multiline": true, "consistent": true },
+      "ExportDeclaration": { "multiline": true, "consistent": true }
+    }],
+    "quote-props": ["error", "consistent-as-needed"],
   },
 };

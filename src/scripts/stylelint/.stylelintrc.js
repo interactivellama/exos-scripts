@@ -2,8 +2,9 @@ module.exports = {
   // You can extend existing configurations
   // See https://stylelint.io/user-guide/configure#extends
   extends: [
+    "stylelint-config-property-sort-order-smacss",
     // Config for SASS files
-    "stylelint-config-sass-guidelines",
+    "stylelint-config-standard",
   ],
   rules: {
     // Override general rules here, see https://stylelint.io/user-guide/configure#rules
