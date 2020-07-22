@@ -13,7 +13,8 @@ import eslintrcReact = require('./.eslintrc.react');
 
 // Choose which default configuration to use
 const isLibrary = getArgumentValue(process.argv, 'type').toLowerCase() === 'library';
-const eslintrc: unknown = isLibrary ? eslintrcLibrary : eslintrcReact;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const eslintrc: any = isLibrary ? eslintrcLibrary : eslintrcReact;
 
 // Resolve configuration to use
 const configToUse = getConfigToUse<Linter.Config>(ExosScripts.lint, eslintrc as Linter.Config);
