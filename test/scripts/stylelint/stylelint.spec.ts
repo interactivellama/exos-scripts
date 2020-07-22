@@ -2,7 +2,8 @@ import path from "path";
 import { runExosScript } from "../../test-utils";
 import type { SpawnSyncReturns } from "child_process";
 
-const MOCKS_FOLDER_PATH = path.resolve(__dirname, "./mocks");
+// Using relative path here due to an issue with stylelint path resolution: it does not work with Windows style paths correctly
+const MOCKS_FOLDER_PATH = "test/**";
 const errorMessage = "❌ There were errors while running stylelint.";
 
 describe("stylelint E2E", () => {
