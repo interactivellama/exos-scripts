@@ -29,6 +29,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
+    'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
     'import/extensions': ['error', { js: 'never', jsx: 'never', ts: 'never', tsx: 'never' }],
