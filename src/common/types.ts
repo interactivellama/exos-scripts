@@ -1,10 +1,10 @@
 /** Exos Scripts names */
 export enum ExosScripts {
-  "start" = "start",
-  "build" = "build",
-  "lint" = "lint",
-  "stylelint" = "stylelint",
-  "test" = "test",
+  'start' = 'start',
+  'build' = 'build',
+  'lint' = 'lint',
+  'stylelint' = 'stylelint',
+  'test' = 'test',
 }
 
 /** Configuration function of the scripts */

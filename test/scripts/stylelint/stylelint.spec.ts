@@ -1,41 +1,43 @@
-import path from "path";
-import { runExosScript } from "../../test-utils";
-import type { SpawnSyncReturns } from "child_process";
+import type { SpawnSyncReturns } from 'child_process';
+import { runExosScript } from '../../test-utils';
 
-// Using relative path here due to an issue with stylelint path resolution: it does not work with Windows style paths correctly
-const MOCKS_FOLDER_PATH = "test/**";
-const errorMessage = "❌ There were errors while running stylelint.";
+/**
+ * Using relative path here due to an issue with stylelint path resolution:
+ * it does not work with Windows style paths correctly
+ */
+const MOCKS_FOLDER_PATH = 'test/**';
+const errorMessage = '❌ There were errors while running stylelint.';
 
-describe("stylelint E2E", () => {
+describe('stylelint E2E', () => {
   let args: string[];
   let results: SpawnSyncReturns<string>;
 
-  describe("when stylelinting a file with no errors", () => {
+  describe('when stylelinting a file with no errors', () => {
     beforeAll(() => {
-      args = ["stylelint", `--files=${MOCKS_FOLDER_PATH}/sass-and-css-modules.scss`];
+      args = ['stylelint', `--files=${MOCKS_FOLDER_PATH}/viable.scss`];
       results = runExosScript(args);
     });
 
-    it("should not output errors", () => {
-      expect(results.stdout.includes(errorMessage)).toBe(false);
+    it('should not output errors', () => {
+      expect(results.stdout).not.toContain(errorMessage);
     });
 
-    it("should exit with status code 0", () => {
+    it('should exit with status code 0', () => {
       expect(results.status).toBe(0);
     });
   });
 
-  describe("when stylelinting a file with errors", () => {
+  describe('when stylelinting a file with errors', () => {
     beforeAll(() => {
-      args = ["stylelint", `--files=${MOCKS_FOLDER_PATH}/failing-test-cases.scss`];
+      args = ['stylelint', `--files=${MOCKS_FOLDER_PATH}/failing.scss`];
       results = runExosScript(args);
     });
 
-    it("should output errors", () => {
-      expect(results.stdout.includes(errorMessage)).toBe(true);
+    it('should output errors', () => {
+      expect(results.stdout).toContain(errorMessage);
     });
 
-    it("should exit with status code 1", () => {
+    it('should exit with status code 1', () => {
       expect(results.status).toBe(1);
     });
   });

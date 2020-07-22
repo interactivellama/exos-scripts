@@ -5,12 +5,12 @@
  * @param defaultValue The default value to return if the argument is not present
  * @returns The value of the argument. If the argument is not present, it returns the default value.
  */
-function getArgumentValue(args: string[], arg: string, defaultValue = ""): string {
+function getArgumentValue(args: string[], arg: string, defaultValue = ''): string {
   const argument = args.find((item) => item.startsWith(`--${arg}`));
 
   // Cover arguments that are booleans and doesn't have a value (e.g. "--coverage")
   if (argument?.endsWith(arg)) {
-    return "true";
+    return 'true';
   }
 
   // Cover arguments that have a value (e.g. "--maxWarnings=3" but also "--maxWarnings 3")

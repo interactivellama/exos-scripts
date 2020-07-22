@@ -1,4 +1,4 @@
-import getArgumentValue from "./getArgumentValue";
+import getArgumentValue from './getArgumentValue';
 
 /**
  * Retrieves the files to use.
@@ -11,13 +11,13 @@ import getArgumentValue from "./getArgumentValue";
 function getFilesToUse(filesArg: string, defaultValue: string[]): string[] {
   // Check if the --files="globPattern1","globPattern2" argument is present
   // If it is, use it to identify the files to test against
-  const filesArgument = getArgumentValue(process.argv, "files");
+  const filesArgument = getArgumentValue(process.argv, 'files');
 
   if (!filesArgument) {
     return defaultValue;
   }
 
-  return filesArgument.split(",");
+  return filesArgument.split(',');
 }
 
 export default getFilesToUse;
