@@ -35,6 +35,7 @@ bower_components
 .project
 .classpath
 .c9/
+*.iml
 *.launch
 .settings/
 *.sublime-workspace
