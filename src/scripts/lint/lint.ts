@@ -13,7 +13,7 @@ import eslintrcReact = require('./.eslintrc.react');
 
 // Choose which default configuration to use
 const isLibrary = getArgumentValue(process.argv, 'type').toLowerCase() === 'library';
-const eslintrc = isLibrary ? eslintrcLibrary : eslintrcReact;
+const eslintrc: unknown = isLibrary ? eslintrcLibrary : eslintrcReact;
 
 // Resolve configuration to use
 const configToUse = getConfigToUse<Linter.Config>(ExosScripts.lint, eslintrc as Linter.Config);
