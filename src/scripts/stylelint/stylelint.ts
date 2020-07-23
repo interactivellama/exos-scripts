@@ -16,7 +16,11 @@ import stylelintrc = require('./.stylelintrc.js');
   console.log(configToUse !== stylelintrc ? 'Found custom stylelint config' : 'Using default stylelint config');
 
   // Resolve files to use
-  const defaultFilesToUse = [path.join(SOURCE_PATH, '/**/*.{scss,css}')];
+  /**
+   * Using relative path here due to an issue with stylelint path resolution:
+   * it does not work with Windows style paths correctly
+   */
+  const defaultFilesToUse = ['./**/*.{scss,css}'];
   const filesToUse = getFilesToUse('--files=', defaultFilesToUse);
   console.log(filesToUse !== defaultFilesToUse ? 'Found custom rule to identify files to use' : 'Using default rule to identify files');
 
