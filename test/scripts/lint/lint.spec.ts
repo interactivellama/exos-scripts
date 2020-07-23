@@ -1,72 +1,72 @@
-import path from "path";
-import { runExosScript } from "../../test-utils";
-import type { SpawnSyncReturns } from "child_process";
+import path from 'path';
+import type { SpawnSyncReturns } from 'child_process';
+import { runExosScript } from '../../test-utils';
 
-const MOCKS_FOLDER_PATH = path.resolve(__dirname, "./mocks");
-const errorMessage = `✖ 20 problems (8 errors, 12 warnings)`;
-const warningMessage = `✖ 3 problems (0 errors, 3 warnings)`;
+const MOCKS_FOLDER_PATH = path.resolve(__dirname, './mocks');
+const errorMessage = '✖ 3 problems (2 errors, 1 warning)';
+const warningMessage = '✖ 2 problems (0 errors, 2 warnings)';
 
-describe("lint E2E", () => {
+describe('lint E2E', () => {
   let args: string[];
   let results: SpawnSyncReturns<string>;
 
-  describe("when linting a file with no errors", () => {
+  describe('when linting a file with no errors', () => {
     beforeAll(() => {
-      args = ["lint", `--files=${MOCKS_FOLDER_PATH}/passing-file.ts`];
+      args = ['lint', `--files=${MOCKS_FOLDER_PATH}/viable.ts`];
       results = runExosScript(args);
     });
 
-    it("should not output errors", () => {
-      expect(results.stdout.includes(errorMessage)).toBe(false);
+    it('should not output errors', () => {
+      expect(results.stdout).not.toContain(errorMessage);
     });
 
-    it("should exit with status code 0", () => {
+    it('should exit with status code 0', () => {
       expect(results.status).toBe(0);
     });
   });
 
-  describe("when linting a file with errors", () => {
+  describe('when linting a file with errors', () => {
     beforeAll(() => {
-      args = ["lint", `--files=${MOCKS_FOLDER_PATH}/failing-file.ts`];
+      args = ['lint', `--files=${MOCKS_FOLDER_PATH}/failing.ts`];
       results = runExosScript(args);
     });
 
-    it("should output errors", () => {
-      expect(results.stdout.includes(errorMessage)).toBe(true);
+    it('should output errors', () => {
+      expect(results.stdout).toContain(errorMessage);
     });
 
-    it("should exit with status code 1", () => {
+    it('should exit with status code 1', () => {
       expect(results.status).toBe(1);
     });
   });
 
-  describe("when linting a file with warnings", () => {
-    describe("and --max-warnings is not defined", () => {
+  describe('when linting a file with warnings', () => {
+    describe('and --max-warnings is not defined', () => {
       beforeAll(() => {
-        args = ["lint", `--files=${MOCKS_FOLDER_PATH}/file-with-warnings.ts`];
+        args = ['lint', `--files=${MOCKS_FOLDER_PATH}/warnings.ts`];
         results = runExosScript(args);
       });
 
-      it("should output warnings", () => {
-        expect(results.stdout.includes(warningMessage)).toBe(true);
+      it('should output warnings', () => {
+        expect(results.stdout).toContain(warningMessage);
       });
 
-      it("should exit with status code 0", () => {
+      it('should exit with status code 0', () => {
         expect(results.status).toBe(0);
       });
     });
 
-    describe("and --max-warnings is defined", () => {
+    describe('and --max-warnings is defined', () => {
       beforeAll(() => {
-        args = ["lint", `--files=${MOCKS_FOLDER_PATH}/file-with-warnings.ts`, "--max-warnings=0"];
+        args = ['lint', `--files=${MOCKS_FOLDER_PATH}/warnings.ts`, '--max-warnings=0'];
         results = runExosScript(args);
       });
 
-      it("should output warnings", () => {
-        expect(results.stdout.includes(warningMessage)).toBe(true);
+      it('should output warnings', () => {
+        expect(results.stdout).toContain(warningMessage);
       });
 
-      it("should exit with status code 1", () => {
+      it('should exit with status code 1', () => {
         expect(results.status).toBe(1);
       });
     });

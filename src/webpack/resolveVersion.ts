@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execSync } from 'child_process';
 
 export default (isDevelopment: boolean): string => {
   if (process.env.VERSION) {
@@ -6,9 +6,9 @@ export default (isDevelopment: boolean): string => {
   }
 
   if (isDevelopment) {
-    return "dev-version";
+    return 'dev-version';
   }
 
-  const gitVersion = execSync("git describe --always --tags");
+  const gitVersion = execSync('git describe --always --tags');
   return gitVersion.toString().trim();
 };

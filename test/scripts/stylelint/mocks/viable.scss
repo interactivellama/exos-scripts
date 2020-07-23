@@ -1,0 +1,10 @@
+:global {
+  // Bang Format test
+  .globalCss {
+    color: #000;
+
+    &.otherClass {
+      background: #f00;
+    }
+  }
+}

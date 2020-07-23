@@ -3,5 +3,5 @@
  * @returns "hi"
  */
 export default function hi(): string {
-  return "hi";
+  return 'hi';
 }

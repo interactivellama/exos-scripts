@@ -1,28 +1,28 @@
 #!/usr/bin/env node
 
+import webpack from "webpack";
+import WebpackDevServer from "webpack-dev-server";
+import webpackConfig from "../../webpack/webpack.config";
+import getConfigToUse from "../../common/getConfigToUse";
+import { ExosScripts } from "../../common/types";
+import getArgumentValue from "../../common/getArgumentValue";
+
+const storybook = require("@storybook/react/standalone");
+
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = "dev";
 }
 
-// eslint-disable-next-line
-const storybook = require("@storybook/react/standalone");
-
-import webpack from "webpack";
-import webpackDevServer from "webpack-dev-server";
-import webpackConfig from "../../webpack/webpack.config";
-import getConfigToUse from "../../common/getConfigToUse";
-import getArgumentValue from "../../common/getArgumentValue";
-
-const isUILibrary = getArgumentValue(process.argv, "type").toLowerCase() === "uilibrary";
-
-const configToUse = getConfigToUse<webpack.Configuration>("start.js", webpackConfig);
-console.log(configToUse.isCustom ? `Found custom start config at ${configToUse.customPath}` : "Using default start config");
+const configToUse = getConfigToUse<webpack.Configuration>(ExosScripts.start, webpackConfig);
+console.log(configToUse !== webpackConfig ? "Found custom start config" : "Using default start config");
 
 // For more information, see https://webpack.js.org/api/node/
-const compiler = webpack(configToUse.result);
-const devServer = new webpackDevServer(compiler, configToUse.result.devServer);
-const port = configToUse.result.devServer?.port || 8080;
-const host = configToUse.result.devServer?.host || "0.0.0.0";
+const compiler = webpack(configToUse);
+const devServer = new WebpackDevServer(compiler, configToUse.devServer);
+const port = configToUse.devServer?.port || 8080;
+const host = configToUse.devServer?.host || "0.0.0.0";
+
+const isUILibrary = getArgumentValue(process.argv, "type").toLowerCase() === "uilibrary";
 
 if (isUILibrary) {
   storybook({
@@ -37,7 +37,6 @@ if (isUILibrary) {
       console.log("❌ There was an error during start.");
       console.log();
       console.log(error);
-      return;
     }
   });
 }
