@@ -4,7 +4,6 @@ import { withA11y } from '@storybook/addon-a11y';
 import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
 
 import { sortStoriesWithExperiences } from './utils';
-import './_global.css';
 
 addDecorator(withKnobs);
 addDecorator(withA11y);

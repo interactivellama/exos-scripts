@@ -7,9 +7,8 @@ import getConfigToUse from '../../common/getConfigToUse';
 import getFilesToUse from '../../common/getFilesToUse';
 import getArgumentValue from '../../common/getArgumentValue';
 import { ExosScripts } from '../../common/types';
-
-import eslintrcLibrary = require('./.eslintrc.library');
-import eslintrcReact = require('./.eslintrc.react');
+import eslintrcLibrary from './.eslintrc.library';
+import eslintrcReact from './.eslintrc.react';
 
 // Choose which default configuration to use
 const isLibrary = getArgumentValue(process.argv, 'type').toLowerCase() === 'library';

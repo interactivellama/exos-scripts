@@ -5,12 +5,12 @@ import type { Config } from '@jest/types';
 import getArgumentValue from '../../common/getArgumentValue';
 import getConfigToUse from '../../common/getConfigToUse';
 import { ExosScripts } from '../../common/types';
+import jestConfigReact from './jest.config.react';
+import jestConfigLibrary from './jest.config.library';
 
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'test';
 }
-import jestConfigReact = require('./jest.config.react');
-import jestConfigLibrary = require('./jest.config.library');
 
 // Choose which default configuration to use
 const isLibrary = getArgumentValue(process.argv, 'type').toLowerCase() === 'library';

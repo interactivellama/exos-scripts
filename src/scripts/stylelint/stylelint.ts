@@ -8,7 +8,7 @@ import getConfigToUse from '../../common/getConfigToUse';
 import getFilesToUse from '../../common/getFilesToUse';
 import { ExosScripts } from '../../common/types';
 
-import stylelintrc = require('./.stylelintrc.js');
+import stylelintrc from './.stylelintrc.js';
 
 (async function main(): Promise<void> {
   // Resolve configuration to use

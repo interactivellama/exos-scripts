@@ -1,9 +1,12 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "rootDirs": ["src", "test"],
+    "rootDirs": [
+      "src",
+      "test"
+    ],
     "outDir": "lib",
-    "module": "commonjs",
+    "module": "ESNext",
     "moduleResolution": "node",
     "target": "es2015",
     "allowJs": true,
@@ -16,6 +19,12 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*/*.spec.ts", "**/*/*.test.ts"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*/*.spec.ts",
+    "**/*/*.test.ts"
+  ]
 }
