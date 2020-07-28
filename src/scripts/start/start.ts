@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'dev';
+}
+
+// We need to set up process.env.NODE_ENV because
+// the imported files will use this value
+/* eslint-disable import/first */
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from '../../webpack/webpack.config';
 import getConfigToUse from '../../common/getConfigToUse';
 import { ExosScripts } from '../../common/types';
-
-if (!process.env.NODE_ENV) {
-  process.env.NODE_ENV = 'dev';
-}
 
 const configToUse = getConfigToUse<webpack.Configuration>(ExosScripts.start, webpackConfig);
 console.log(configToUse !== webpackConfig ? 'Found custom start config' : 'Using default start config');

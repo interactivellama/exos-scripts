@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk';
-import path from 'path';
 import stylelint from 'stylelint';
-import { SOURCE_PATH, ROOT_PATH } from '../../common/paths';
+import { ROOT_PATH } from '../../common/paths';
 import getConfigToUse from '../../common/getConfigToUse';
 import getFilesToUse from '../../common/getFilesToUse';
 import { ExosScripts } from '../../common/types';
