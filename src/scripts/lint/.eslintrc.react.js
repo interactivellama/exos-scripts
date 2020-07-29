@@ -91,5 +91,12 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
       },
     },
+    {
+      files: ['*.stories.*'],
+      rules: {
+        'react/no-multi-comp': 'off',
+        'react/jsx-no-bind': 'off',
+      },
+    },
   ],
 };
