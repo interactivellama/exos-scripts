@@ -70,5 +70,11 @@ module.exports = {
         'react/jsx-no-bind': 'off',
       },
     },
+    {
+      files: ['*.container.*'],
+      rules: {
+        'react/jsx-handler-names': 'off',
+      },
+    },
   ],
 };
