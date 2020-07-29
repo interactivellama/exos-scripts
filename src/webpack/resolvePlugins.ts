@@ -3,7 +3,11 @@ import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import { ASSETS_PATH, OUTPUT_PATH, OUTPUT_PUBLIC_PATH } from '../common/paths';
+import {
+  ASSETS_PATH,
+  OUTPUT_PATH,
+  OUTPUT_PUBLIC_PATH,
+} from '../common/paths';
 
 export default (isDevelopment: boolean, isLibrary: boolean, version: string): webpack.Plugin[] => {
   // const noOpFunction = (): undefined => undefined;
@@ -11,7 +15,11 @@ export default (isDevelopment: boolean, isLibrary: boolean, version: string): we
     filename: isDevelopment ? 'styles.css' : 'styles.[hash:5].css',
     chunkFilename: isDevelopment ? '[id].css' : '[id].[hash:5].css',
   });
-  const copyWebpackPlugin = new CopyWebpackPlugin([{ from: ASSETS_PATH, to: OUTPUT_PATH, ignore: ['index.ejs'] }]);
+  const copyWebpackPlugin = new CopyWebpackPlugin([{
+    from: ASSETS_PATH,
+    to: OUTPUT_PATH,
+    ignore: ['index.ejs'],
+  }]);
   const htmlWebpackPlugin = new HtmlWebpackPlugin({
     cache: true,
     inject: 'body',

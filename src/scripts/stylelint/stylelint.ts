@@ -25,8 +25,13 @@ import stylelintrc = require('./.stylelintrc.js');
 
   try {
     // Lint files and get the lint result
-    const options = { config: configToUse, files: filesToUse };
-    const { errored, results } = await stylelint.lint(options);
+    const options = {
+      config: configToUse,
+      files: filesToUse,
+    };
+    const {
+      errored, results,
+    } = await stylelint.lint(options);
 
     // Output the results and exit the process based on them
     if (errored) {

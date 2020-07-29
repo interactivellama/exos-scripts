@@ -34,7 +34,11 @@ compiler.run((err: Error, stats: webpack.Stats) => {
     process.exit(1);
   }
 
-  const executionStats = stats.toJson({ all: false, warnings: true, errors: true });
+  const executionStats = stats.toJson({
+    all: false,
+    warnings: true,
+    errors: true,
+  });
 
   if (executionStats.errors.length) {
     // Only print the first error. Others are often indicative

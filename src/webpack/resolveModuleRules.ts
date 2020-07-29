@@ -43,9 +43,17 @@ function getCssLoaders(
 
 export default (isDevelopment: boolean, isLibrary: boolean): webpack.RuleSetRule[] => [
   // All .ts and .tsx files will be loaded with ts-loader
-  { test: /\.ts(x?)$/, include: SOURCE_PATH, use: [{ loader: 'ts-loader' }] },
+  {
+    test: /\.ts(x?)$/,
+    include: SOURCE_PATH,
+    use: [{ loader: 'ts-loader' }],
+  },
   // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-  { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+  {
+    enforce: 'pre',
+    test: /\.js$/,
+    loader: 'source-map-loader',
+  },
   {
     test: /\.scss$/,
     use: [
@@ -62,5 +70,8 @@ export default (isDevelopment: boolean, isLibrary: boolean): webpack.RuleSetRule
     test: /\.css$/,
     use: [...getCssLoaders(isDevelopment, isLibrary)],
   },
-  { test: /\.svg$/, use: ['@svgr/webpack', 'url-loader'] },
+  {
+    test: /\.svg$/,
+    use: ['@svgr/webpack', 'url-loader'],
+  },
 ];

@@ -53,7 +53,10 @@ console.log(filesToUse !== defaultFilesToUse ? `Found custom rule to identify fi
         /* eslint-enable */
         return globalAcc;
       },
-      { errorCount: 0, warningCount: 0 },
+      {
+        errorCount: 0,
+        warningCount: 0,
+      },
     );
 
     // Format the (global) results and output them
