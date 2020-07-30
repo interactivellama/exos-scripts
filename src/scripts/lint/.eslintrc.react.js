@@ -45,7 +45,7 @@ module.exports = {
       eventHandlerPropPrefix: 'on',
     }],
     'react/jsx-max-props-per-line': ['error', {
-      maximum: 3,
+      maximum: 1,
       when: 'always',
     }],
     'react/jsx-no-bind': ['error', {
