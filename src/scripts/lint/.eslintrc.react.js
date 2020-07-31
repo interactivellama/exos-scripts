@@ -31,7 +31,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     'react/jsx-props-no-spreading': 'off',
-    // Promotes localization of string literals
+    // Promotes localization of string literals in JSX
     'react/jsx-no-literals': ['error', { noStrings: false }],
     'react/prop-types': 'off',
     'react/static-property-placement': ['error', 'static public field'],
