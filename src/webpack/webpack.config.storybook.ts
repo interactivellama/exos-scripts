@@ -3,15 +3,19 @@ import path from 'path';
 import type webpack from 'webpack';
 import resolveAliases from './resolveAliases';
 import resolveModuleRules from './resolveModuleRules';
+import getArgumentValue from '../common/getArgumentValue';
 
 const isDevelopment = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'dev';
 
 // eslint-disable-next-line
 const createCompiler = require("@storybook/addon-docs/mdx-compiler-plugin");
 
+const withPackages = getArgumentValue(process.argv, 'withPackages');
+
 const storybookRules: webpack.RuleSetRule[] = [
   {
     test: /\.(stories|story)\.mdx$/,
+    exclude: [/node_modules/],
     use: [
       {
         loader: 'babel-loader',
@@ -36,14 +40,15 @@ const storybookRules: webpack.RuleSetRule[] = [
   },
   {
     test: /\.tsx?$/,
-    include: path.resolve(__dirname, '../src'),
+    include: [path.resolve('./src'), ...(withPackages ? [path.resolve('./package')] : [])],
+    exclude: [/node_modules/],
     use: [
       {
         loader: require.resolve('react-docgen-typescript-loader'),
         options: {
           // Provide the path to your tsconfig.json so that your stories can
           // display types from outside each individual story.
-          tsconfigPath: path.resolve(__dirname, '../tsconfig.json'),
+          tsconfigPath: path.resolve('./tsconfig.json'),
         },
       },
     ],

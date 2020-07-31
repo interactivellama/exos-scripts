@@ -1,4 +1,4 @@
-const sortStoriesWithExperiences = (a: string, b: string): number => {
+const sortStoriesWithExperiences = (a, b) => {
   const storyA = a[0].toLowerCase();
   const storyB = b[0].toLowerCase();
   if (storyA.includes('documentation')) {
@@ -24,4 +24,4 @@ const sortStoriesWithExperiences = (a: string, b: string): number => {
   return storyA.localeCompare(storyB);
 };
 
-export default { sortStoriesWithExperiences };
+export default sortStoriesWithExperiences;

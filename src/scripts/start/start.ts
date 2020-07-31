@@ -13,9 +13,9 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'dev';
 }
 
-const isUILibrary = getArgumentValue(process.argv, 'type').toLowerCase() === 'uilibrary';
+const startStorybook = getArgumentValue(process.argv, 'storybook');
 
-if (isUILibrary) {
+if (startStorybook) {
   storybook({
     mode: 'dev',
     port: 9000,
